@@ -1,15 +1,12 @@
-import { Routes, Route } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import { routes } from "./routes";
 
 function App() {
+  const element = useRoutes(routes);
 
   return (
     <div>
-      <Routes>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-      </Routes>
+      {element}
     </div>
   );
 }
