@@ -1,35 +1,5 @@
 @import "tailwindcss";
 
-/* Custom component classes */
-@layer components {
-  .btn-primary {
-    padding: 12px 24px;
-    background: #2a449b;
-    background: linear-gradient(90deg,rgba(42, 68, 155, 1) 21%, rgba(26, 59, 109, 1) 79%, rgba(25, 59, 107, 1) 90%);
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-  }
-
-  .btn-primary:hover {
-    background: #3d3d3d;
-  }
-
-  .btn-outline {
-    padding: 12px 24px;
-    color: #1b1b1b;
-    border-width: 1px;
-    border-color: #1b1b1b;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 500;
-    background-color: white;
-    cursor: pointer;
-  }
-}
 
 @theme {
   --color-success-10: #e5f5ed;
@@ -41,7 +11,6 @@
   --color-grey-soft: #fafafb;
 }
 
-/* Base styles */
 @layer base {
   html {
     width: 100vw;
