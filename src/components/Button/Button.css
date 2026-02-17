@@ -4,15 +4,18 @@
   font-weight: 500;
   cursor: pointer;
   border-radius: 0.625em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
 }
 
 .btn-primary {
   background: #2a449b;
   background: linear-gradient(
     90deg,
-    rgb(42, 70, 160) 21%,
-    rgb(29, 65, 120) 79%,
-    rgba(25, 59, 107, 1) 100%
+    rgb(42, 70, 155) 0%,
+    rgba(25, 59, 193) 100%
   );
   color: white;
   transition: background 0.2s ease-in-out;
@@ -28,9 +31,9 @@
 }
 
 .btn-outline {
-  color: #1b1b1b;
+  color: #101828;
   border-width: 1px;
-  border-color: #1b1b1b;
+  border-color: #D1D5DC;
   background-color: white;
   cursor: pointer;
 }

@@ -11,6 +11,11 @@
   --color-grey-soft: #fafafb;
   --color-primary: #155DFC;
   --color-primary-text: #364153;
+  --color-secondary-bg: #eff6ff;
+}
+
+.containers{
+  @apply container mx-auto px-4 md:px-8;
 }
 
 @layer base {
