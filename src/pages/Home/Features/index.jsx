@@ -1,6 +1,6 @@
 import React from "react";
-import data from "../../utils/features.json";
-import {Card, CardDescription, CardHeader} from "../Card";
+import data from "../../../utils/features.json";
+import { Card, CardDescription, CardHeader } from "../../../components/Card";
 
 const Features = () => {
   return (
@@ -25,16 +25,18 @@ const Features = () => {
               className="p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
             >
               <CardHeader className="items-center space-y-6">
-              <img
-                src={feature.icon}
-                alt={`${feature.title} Icon`}
-                className="h-16 w-16"
-              />
-              <h3 className="text-xl font-semibold text-primary">
-                {feature.title}
-              </h3>
+                <img
+                  src={feature.icon}
+                  alt={`${feature.title} Icon`}
+                  className="h-16 w-16"
+                />
+                <h3 className="text-xl font-semibold text-primary">
+                  {feature.title}
+                </h3>
               </CardHeader>
-              <CardDescription className="text-primary-text max-w-md text-lg text-center">{feature.description}</CardDescription>
+              <CardDescription className="text-primary-text max-w-md text-lg text-center">
+                {feature.description}
+              </CardDescription>
             </Card>
           ))}
         </div>

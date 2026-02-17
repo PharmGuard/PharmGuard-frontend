@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { clsx } from "clsx";
-import Button from "../Button";
+import Button from "../../../components/Button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
