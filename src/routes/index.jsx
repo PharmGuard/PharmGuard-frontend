@@ -10,8 +10,8 @@ export const routes = [
     element: <Home />,
   },
   // {
-  //   path: "/about",
-  //   element: <About />,
+  //   path: "/login",
+  //   element: <Login />,
   // },
   // {
   //   path: "/contact",
