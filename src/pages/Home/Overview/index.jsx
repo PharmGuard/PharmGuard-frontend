@@ -13,7 +13,7 @@ const Overview = () => {
             all in one dashboard.
           </p>
         </div>
-        <div>
+        <div aria-label='Overview Image'>
             <img src="/overview.svg" alt="Overview of PharmGuard Dashboard" className="w-full max-w-4xl mx-auto" />
         </div>
       </div>
