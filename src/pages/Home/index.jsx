@@ -1,9 +1,9 @@
-import React from 'react'
-import Navbar from '../../components/Navbar';
-import Hero from '../../components/Hero';
-import Features from '../../components/Features';
+import React from "react";
+import Navbar from "./Navbar";
+import Hero from "./Hero";
+import Features from "./Features";
 
- const Home= () => {
+const Home = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -11,6 +11,6 @@ import Features from '../../components/Features';
       <Features />
     </div>
   );
-}
+};
 
-export default Home
+export default Home;

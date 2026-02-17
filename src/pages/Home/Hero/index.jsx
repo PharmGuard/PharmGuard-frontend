@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "../Button";
-import Login from "../../assets/icons/login.svg?react";
-import ArrowLeft from "../../assets/icons/arrow-left.svg?react";
+import Button from "/src/components/Button";
+import Login from "/src/assets/icons/login.svg?react";
+import ArrowLeft from "/src/assets/icons/arrow-left.svg?react";
 
 const Hero = () => {
   return (
