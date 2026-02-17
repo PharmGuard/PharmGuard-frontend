@@ -22,11 +22,11 @@
 }
 
 .btn-primary:hover {
-  background: #1b1b1b;
+  background: #888787;
   background: linear-gradient(
     90deg,
-    rgba(27, 27, 27, 1) 0%,
-    rgba(27, 27, 27, 1) 100%
+    rgb(172, 189, 202) 0%,
+    rgb(97, 95, 95) 100%
   );
 }
 

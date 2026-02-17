@@ -3,37 +3,37 @@
         "id": 1,
         "title": "Inventory Tracking",
         "description": "Easily monitor stock levels, batch numbers, and expiry dates with FEFO management for optimal inventory control.",
-        "icon": "../assets/icons/inventory.svg"
+        "icon": "/src/assets/icons/inventory.svg"
     },
     {
         "id": 2,
         "title": "AI predictions",
         "description": "Intelligent forecasts for stock-outs and expiry dates based on historical trends and usage patterns.",
-        "icon": "../assets/icons/predictions.svg"
+        "icon": "/src/assets/icons/predictions.svg"
     },
     {
         "id": 3,
         "title": "Instant Alerts",
         "description": "Get notified of low stock, upcoming expiries, and critical inventory events in real-time.",
-        "icon": "../assets/icons/alerts.svg"
+        "icon": "/src/assets/icons/alerts.svg"
     },
     {
         "id": 4,
         "title": "Analytics Dashboard",
         "description": "Comprehensive insights into inventory value, turnover rates, and usage trends with visual reports.",
-        "icon": "../assets/icons/analytics.svg"
+        "icon": "/src/assets/icons/analytics.svg"
     },
     {
         "id": 5,
         "title": "Role-Based Access",
         "description": "Secure, role-specific dashboards for Admins, Pharmacists, and Storekeepers with tamper-proof audit trails.",
-        "icon": "../assets/icons/integration.svg"
+        "icon": "/src/assets/icons/access.svg"
     },
     {
         "id": 6,
         "title": "Smart Reordering",
         "description": "Intelligent reorder suggestions based on consumption patterns, lead times, and seasonal trends.",
-        "icon": "../assets/icons/reordering.svg"
+        "icon": "/src/assets/icons/reordering.svg"
     }
 
 ]
