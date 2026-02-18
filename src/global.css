@@ -12,6 +12,8 @@
   --color-primary: #155DFC;
   --color-primary-text: #364153;
   --color-secondary-bg: #eff6ff;
+  --color-primary-dark: #101828;
+  --color-white-fade: #D1D5DC;
 }
 
 .containers{
