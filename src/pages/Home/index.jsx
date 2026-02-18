@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Hero from "./Hero";
 import Features from "./Features";
 import Overview from "./Overview";
+import Benefits from "./Benefits";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Hero />
       <Features />
       <Overview />
+      <Benefits />
     </div>
   );
 };
