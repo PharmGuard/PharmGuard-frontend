@@ -1,5 +1,5 @@
 import React from "react";
-import data from "../../../utils/benefits.json";
+import data from "/src/utils/benefits.json";
 
 const Benefits = () => {
   return (

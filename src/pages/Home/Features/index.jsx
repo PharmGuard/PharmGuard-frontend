@@ -1,5 +1,5 @@
 import React from "react";
-import data from "../../../utils/features.json";
+import data from "/src/utils/features.json";
 import { Card, CardDescription, CardHeader } from "../../../components/Card";
 
 const Features = () => {
