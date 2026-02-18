@@ -3,24 +3,24 @@
         "id": 1,
         "title": "Save Time",
         "description": "Automate inventory tracking, reduce manual paperwork, and streamline medication dispensing workflows.",
-        "icon": "/src/assets/icons/time.svg"
+        "icon": "/icons/time.svg"
     },
     {
         "id": 2,
         "title": "Reduce Waste",
         "description": "Prevent expired medications and optimize stock levels with AI-powered predictions and FEFO (First Expire, First Out) management",
-        "icon": "/src/assets/icons/waste.svg"
+        "icon": "/icons/waste.svg"
     },
     {
         "id": 3,
         "title": "Improve Efficiency",
         "description": "Make data-driven decisions with comprehensive analytics and real-time insights into inventory performance",
-        "icon": "/src/assets/icons/efficient.svg"
+        "icon": "/icons/efficient.svg"
     },
     {
         "id": 4,
         "title": "Ensure Compliance",
         "description": "Maintain tamper-proof audit trails and role-based access controls for regularity compliance and security.",
-        "icon": "/src/assets/icons/compliance.svg"
+        "icon": "/icons/compliance.svg"
     }
 ]
