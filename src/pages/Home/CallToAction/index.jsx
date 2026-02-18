@@ -16,7 +16,7 @@ const CallToAction = () => {
             their operations
           </p>
         </div>
-        <div aria-label='Call To Action Buttons' className='flex items-center justify-center gap-6 border-b-1 border-white pb-12'>
+        <div aria-label='Call To Action Buttons' className='flex flex-col sm:flex-row items-center justify-center gap-6 border-b-2 border-blue-500 pb-12'>
             <Button to="/signup" variant='outline' className="flex items-center">
                 Sign Up
                 <ArrowLeft className='w-6 h-6' />

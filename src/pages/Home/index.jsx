@@ -5,6 +5,7 @@ import Features from "./Features";
 import Overview from "./Overview";
 import Benefits from "./Benefits";
 import CallToAction from "./CallToAction";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <Overview />
       <Benefits />
       <CallToAction />
+      <Footer />
     </div>
   );
 };
