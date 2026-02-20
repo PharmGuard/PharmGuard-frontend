@@ -13,7 +13,7 @@ const FormInput = ({
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
       {label && (
-        <label htmlFor={name} className="text-sm font-medium text-primary">
+        <label htmlFor={name} className="text-sm text-primary">
           {`${label}*`}
         </label>
       )}
@@ -24,7 +24,7 @@ const FormInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className={`px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary ${
+        className={`px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-primary/50 ${
           error
             ? "border-red-500 bg-red-50"
             : "border-primary bg-white hover:border-primary-dark"
