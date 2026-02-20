@@ -1,4 +1,3 @@
-// components/Form/FormButton.jsx
 import React from "react";
 
 const FormButton = ({ children, loading = false, className = "" }) => {
