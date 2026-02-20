@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
-import Logo from '../../assets/icons/dashLogo.svg?react';
-import Logout from '../../assets/icons/logout.svg?react'
+import Logo from "../../assets/icons/dashLogo.svg?react";
+import Logout from "../../assets/icons/logout.svg?react";
 
 const Sidebar = ({ isOpen, onClose, navLinks }) => {
   return (
@@ -19,11 +19,14 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
       <aside
         className={clsx(
           "fixed lg:static inset-y-0 left-0 z-50",
-          "w-64 bg-primary text-white",
+          "w-64 text-white",
           "flex flex-col",
           "transition-transform duration-300 ease-in-out lg:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
+        style={{
+          background: "linear-gradient(180deg, #155DFC 0%, #0D3BA8 100%)",
+        }}
       >
         {/* Logo Section */}
         <div className="p-6 border-b border-white/10">
@@ -59,10 +62,10 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
         {/* Logout Button */}
         <div className="p-4 border-t border-white">
           <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200">
-            <Logout className="w-6 h-6"/>
+            <Logout className="w-6 h-6" />
             <span>Logout</span>
           </button>
-        </div> 
+        </div>
       </aside>
     </>
   );
