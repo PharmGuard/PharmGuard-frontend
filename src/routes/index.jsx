@@ -4,7 +4,6 @@ import Overview from "../pages/Dashboard/Overview";
 import UserManagement from "../pages/Dashboard/UserManagement";
 import AuditTrail from "../pages/Dashboard/AuditTrail";
 
-
 export const routes = [
   {
     path: "/",
