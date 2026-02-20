@@ -1,7 +1,7 @@
 import React from "react";
 import Notification from "../../assets/icons/notification.svg?react";
 
-const DashboardNavbar = ({ onMenuClick, user }) => {
+const DashboardNavbar = ({ onMenuClick, user, title }) => {
   return (
     <nav className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-30">
       <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ const DashboardNavbar = ({ onMenuClick, user }) => {
 
         {/* Page Title - Hidden on mobile when we have user info */}
         <h1 className="text-xl font-semibold text-primary-text hidden md:block">
-          Dashboard
+          {title || "Dashboard"}
         </h1>
 
         {/* Spacer for mobile */}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import DashboardNavbar from "../components/DashboardNav";
 import Overview from "../assets/icons/overview.svg?react";
@@ -28,6 +28,21 @@ const DashboardLayout = () => {
     },
   ];
 
+  const location = useLocation();
+
+  // normalize pathname (remove trailing slash)
+  const pathname = location.pathname.replace(/\/$/, "");
+
+  // determine current title from navLinks
+  const currentMatch = navLinks.find((link) => {
+    if (link.end) {
+      return pathname === "/dashboard";
+    }
+    return pathname === link.to;
+  });
+
+  const currentTitle = currentMatch ? currentMatch.label : "Dashboard";
+
   const user = {
     name: "Dr. Sarah Johnson",
     role: "Admin",
@@ -49,6 +64,7 @@ const DashboardLayout = () => {
         <DashboardNavbar
           onMenuClick={() => setIsSidebarOpen(true)}
           user={user}
+          title={currentTitle}
         />
 
         {/* Page Content */}
