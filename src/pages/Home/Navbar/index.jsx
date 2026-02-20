@@ -53,10 +53,10 @@ const Navbar = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button to="/login" variant="neutral">
+            <Button to="/auth/login" variant="neutral">
               Login
             </Button>
-            <Button to="/signup" variant="primary">
+            <Button to="/auth/signup" variant="primary">
               Sign Up
             </Button>
           </div>
@@ -136,10 +136,10 @@ const Navbar = () => {
 
           {/* Mobile Auth Buttons */}
           <div className="flex flex-col gap-3 pt-6">
-            <Button to="/login" variant="neutral" className="w-full">
+            <Button to="/auth/login" variant="neutral" className="w-full">
               Login
             </Button>
-            <Button to="/signup" variant="primary" className="w-full">
+            <Button to="/auth/signup" variant="primary" className="w-full">
               Sign Up
             </Button>
           </div>
