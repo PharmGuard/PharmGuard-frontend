@@ -4,6 +4,7 @@ import Overview from "../pages/Dashboard/Overview";
 import UserManagement from "../pages/Dashboard/UserManagement";
 import AuditTrail from "../pages/Dashboard/AuditTrail";
 import Login from "../pages/Auth/Login";
+import VerifyAccount from "../pages/Auth/VerifyAccount";
 
 export const routes = [
   {
@@ -17,10 +18,10 @@ export const routes = [
         path: "login",
         element: <Login />,
       },
-      //{
-      //   path: "register",
-      //   element: <Register />,
-      // },
+      {
+        path: "verify-account",
+        element: <VerifyAccount />,
+      },
       // {
       //   path: "forgot-password",
       //   element: <ForgotPassword />,
