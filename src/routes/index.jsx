@@ -5,6 +5,10 @@ import UserManagement from "../pages/Dashboard/UserManagement";
 import AuditTrail from "../pages/Dashboard/AuditTrail";
 import Login from "../pages/Auth/Login";
 import VerifyAccount from "../pages/Auth/VerifyAccount";
+import VerifySuccess from "../pages/Auth/VerifySuccess";
+import ForgotPassword from "../pages/Auth/ForgotPassword";
+import ResetPassword from "../pages/Auth/ResetPassword";
+import ResetSuccess from "../pages/Auth/ResetSuccess";
 
 export const routes = [
   {
@@ -22,14 +26,22 @@ export const routes = [
         path: "verify-account",
         element: <VerifyAccount />,
       },
-      // {
-      //   path: "forgot-password",
-      //   element: <ForgotPassword />,
-      // },
-      // {
-      //   path: "reset-password",
-      //   element: <ResetPassword />,
-      // }
+      {
+        path: "verify-success",
+        element: <VerifySuccess />
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
+      },
+        {
+        path: "reset-success",
+        element: <ResetSuccess />,
+      }
     ]
   },
   {
