@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
         style={{
-          background: "linear-gradient(180deg, #155DFC 0%, #0D3BA8 100%)",
+          background: "linear-gradient(180deg, #155DFC 0%, #193CB8 100%)",
         }}
       >
         {/* Logo Section */}
