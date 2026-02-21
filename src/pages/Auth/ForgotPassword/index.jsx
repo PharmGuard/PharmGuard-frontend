@@ -36,14 +36,14 @@ const ForgotPassword = () => {
           </div>
 
           <Form className="space-y-8 mb-2">
-            <FormInput 
+            <FormInput
               type="email"
               name="email"
               placeholder="Email Address"
               className="w-full"
             />
             <FormButton className="w-full mt-6 cursor-pointer">
-              Log In
+              Send Reset Code
             </FormButton>
           </Form>
         </div>
