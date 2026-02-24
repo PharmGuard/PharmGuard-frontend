@@ -34,7 +34,7 @@ const Features = () => {
                   {feature.title}
                 </h3>
               </CardHeader>
-              <CardDescription className="text-primary-text max-w-md text-lg text-center">
+              <CardDescription className="text-primary-text max-w-lg mx-auto text-lg text-center">
                 {feature.description}
               </CardDescription>
             </Card>

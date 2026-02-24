@@ -1,17 +1,23 @@
-import React from 'react'
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer aria-label="Footer section" className="bg-primary-dark px-10 py-12">
+    <footer
+      aria-label="Footer section"
+      className="bg-primary-dark py-12 w-full"
+    >
       <div
-        className="container mx-auto px-4 py-8"
+        className="w-full max-w-[1700px] mx-auto px-4 md:px-10 lg:px-20 py-8"
         aria-label="Main footer section"
       >
         <div
           aria-label="Footer content"
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 border-b-1 border-white-fade pb-12"
         >
-          <div className="space-y-6 text-white-fade w-full lg:w-auto" aria-label="Company Info">
+          <div
+            className="space-y-6 text-white-fade w-full lg:w-auto"
+            aria-label="Company Info"
+          >
             <img
               src="/footer-logo.svg"
               alt="PharmGuard Logo"
@@ -42,13 +48,13 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-            <p className="text-white-fade mt-8">
-                &copy; {new Date().getFullYear()} PharmGuard. All rights reserved.
-            </p>
+          <p className="text-white-fade mt-8">
+            &copy; {new Date().getFullYear()} PharmGuard. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;
