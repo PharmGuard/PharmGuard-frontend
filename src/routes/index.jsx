@@ -12,6 +12,9 @@ import ResetSuccess from "../pages/Auth/ResetSuccess";
 import ProtectedRoute from "./ProtectedRoute";
 import PharmacistOverview from "../pages/Dashboard/Pharmacist/Overview";
 import StorekeeperOverview from "../pages/Dashboard/StockKeeper/Overview";
+import DispenseMedication from "../pages/Dashboard/Pharmacist/DispenseMedication";
+import Inventory from "../pages/Dashboard/Pharmacist/Inventory";
+
 
 export const routes = [
   {
@@ -83,11 +86,11 @@ export const routes = [
           },
           {
             path: "dispense",
-            element: <div>Dispense Page</div>, // Placeholder
+            element: <DispenseMedication />
           },
           {
             path: "inventory",
-            element: <div>Inventory Page</div>, // Placeholder
+            element: <Inventory />, // Placeholder
           },
         ],
       },
