@@ -1,8 +1,8 @@
 import Home from "../pages/Home";
 import DashboardLayout from "../layouts/DashboardLayout";
-import Overview from "../pages/Dashboard/Overview";
-import UserManagement from "../pages/Dashboard/UserManagement";
-import AuditTrail from "../pages/Dashboard/AuditTrail";
+import Overview from "../pages/Dashboard/Admin/Overview";
+import UserManagement from "../pages/Dashboard/Admin/UserManagement";
+import AuditTrail from "../pages/Dashboard/Admin/AuditTrail";
 import Login from "../pages/Auth/Login";
 import VerifyAccount from "../pages/Auth/VerifyAccount";
 import VerifySuccess from "../pages/Auth/VerifySuccess";
@@ -10,6 +10,8 @@ import ForgotPassword from "../pages/Auth/ForgotPassword";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import ResetSuccess from "../pages/Auth/ResetSuccess";
 import ProtectedRoute from "./ProtectedRoute";
+import PharmacistOverview from "../pages/Dashboard/Pharmacist/Overview";
+import StorekeeperOverview from "../pages/Dashboard/StockKeeper/Overview";
 
 export const routes = [
   {
@@ -63,6 +65,52 @@ export const routes = [
           {
             path: "audit-trail",
             element: <AuditTrail />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/pharmacist-dashboard",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <PharmacistOverview />,
+          },
+          {
+            path: "dispense",
+            element: <div>Dispense Page</div>, // Placeholder
+          },
+          {
+            path: "inventory",
+            element: <div>Inventory Page</div>, // Placeholder
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/storekeeper-dashboard",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <StorekeeperOverview />,
+          },
+          {
+            path: "stock",
+            element: <div>Stock Management Page</div>, // Placeholder
+          },
+          {
+            path: "suppliers",
+            element: <div>Suppliers Page</div>, // Placeholder
           },
         ],
       },
