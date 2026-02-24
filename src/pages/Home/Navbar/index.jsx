@@ -24,7 +24,7 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Nav Links */}
-          <ul className="hidden lg:flex items-center gap-10 text-primary-text text-lg font-medium">
+          <ul className="hidden lg:flex items-center gap-10 text-primary-text text-base lg:text-xl font-medium">
             <li>
               <a
                 href="#features"
