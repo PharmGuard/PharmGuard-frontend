@@ -16,12 +16,12 @@ const CallToAction = () => {
             their operations
           </p>
         </div>
-        <div aria-label='Call To Action Buttons' className='flex flex-col sm:flex-row items-center justify-center gap-6 border-b-2 border-blue-500 pb-12'>
-            <Button to="/signup" variant='outline' className="flex items-center">
-                Sign Up
+        <div aria-label='Call To Action Buttons' className='flex flex-col sm:flex-row items-center justify-center gap-6 border-b-2 border-blue-500 pb-12 max-w-3xl mx-auto'>
+            <Button to="/signup" variant='outline' className="flex items-center w-full">
+                Verify Account
                 <ArrowLeft className='w-6 h-6' />
             </Button>
-            <Button to="/login" className='flex items-center'>
+            <Button to="/login" className='flex items-center w-full' variant='blue'>
                 <Login className='w-6 h-6'/>
                 Login
             </Button>

@@ -1,9 +1,9 @@
 .btn {
-  padding: 0.5em 1.4em;
+  padding: 0.5em 1em;
   font-size: 1.375rem;
   font-weight: 500;
   cursor: pointer;
-  border-radius: 0.625em;
+  border-radius: 0.525em;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -11,11 +11,11 @@
 }
 
 .btn-primary {
-  background: #2a449b;
+  background: #155DFC;
   background: linear-gradient(
     90deg,
-    rgb(42, 70, 155) 0%,
-    rgba(25, 59, 193) 100%
+    #155DFC 0%,
+    #193CB8 100%
   );
   color: white;
   transition: background 0.2s ease-in-out;
@@ -28,6 +28,15 @@
     rgb(172, 189, 202) 0%,
     rgb(97, 95, 95) 100%
   );
+}
+
+.btn-blue{
+  color: #fff;
+  background-color: #2B7FFF;
+}
+
+.btn-blue:hover{
+  background-color: #193CB8;
 }
 
 .btn-outline {
@@ -44,7 +53,7 @@
 } 
 
 .btn-neutral {
-  background-color: #f0f0f0;
+  background-color: white;
   color: #3c3b3b;
   border-width: 1px;
   border-color: #f0f0f0;

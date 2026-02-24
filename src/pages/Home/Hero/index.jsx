@@ -18,13 +18,13 @@ const Hero = () => {
             trails. Keep essential medications available at all times.
           </p>
 
-          <div className="flex gap-4">
-            <Button to="/login" variant="primary">
+          <div className="flex gap-4 max-w-lg">
+            <Button to="/login" variant="primary" className="w-full">
               <Login className="w-6 h-6"/>
               Login
             </Button>
-            <Button to="/signup" variant="outline">
-              Sign Up
+            <Button to="/signup" variant="outline" className="w-full">
+              Verify Account
               <ArrowLeft className="w-6 h-6" />
             </Button>
           </div>

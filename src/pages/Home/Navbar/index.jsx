@@ -56,8 +56,8 @@ const Navbar = () => {
             <Button to="/auth/login" variant="neutral">
               Login
             </Button>
-            <Button to="/auth/signup" variant="primary">
-              Sign Up
+            <Button to="/auth/verify-account" variant="primary">
+              Verify Account
             </Button>
           </div>
           <button
@@ -139,8 +139,12 @@ const Navbar = () => {
             <Button to="/auth/login" variant="neutral" className="w-full">
               Login
             </Button>
-            <Button to="/auth/signup" variant="primary" className="w-full">
-              Sign Up
+            <Button
+              to="/auth/verify-account"
+              variant="primary"
+              className="w-full"
+            >
+              Verify Account
             </Button>
           </div>
         </div>

@@ -15,6 +15,7 @@ const Button = ({
     primary: 'btn-primary btn-primary-hover',
     outline: 'btn-outline btn-outline-hover',
     neutral: 'btn-neutral btn-neutral-hover',
+    blue: 'btn-blue btn-blue-hover',
   }
 
   const classes = `btn ${variants[variant] || variants.primary} ${className}`
