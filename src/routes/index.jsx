@@ -9,6 +9,7 @@ import VerifySuccess from "../pages/Auth/VerifySuccess";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import ResetSuccess from "../pages/Auth/ResetSuccess";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const routes = [
   {
@@ -28,7 +29,7 @@ export const routes = [
       },
       {
         path: "verify-success",
-        element: <VerifySuccess />
+        element: <VerifySuccess />,
       },
       {
         path: "forgot-password",
@@ -38,27 +39,32 @@ export const routes = [
         path: "reset-password",
         element: <ResetPassword />,
       },
-        {
+      {
         path: "reset-success",
         element: <ResetSuccess />,
-      }
-    ]
+      },
+    ],
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: <ProtectedRoute />,
     children: [
       {
-        index: true,
-        element: <Overview />,
-      },
-      {
-        path: "user-management",
-        element: <UserManagement />,
-      },
-      {
-        path: "audit-trail",
-        element: <AuditTrail />,
+        element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <Overview />,
+          },
+          {
+            path: "user-management",
+            element: <UserManagement />,
+          },
+          {
+            path: "audit-trail",
+            element: <AuditTrail />,
+          },
+        ],
       },
     ],
   },

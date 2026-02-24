@@ -1,9 +1,65 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 import BackArrow from "../../../assets/icons/back-arrow.svg?react";
 import { Form, FormInput, FormButton } from "../../../components/Form";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear error when user types
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({});
+
+    // Validation
+    const newErrors = {};
+    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.password) newErrors.password = "Password is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const data = await login(formData.email.trim(), formData.password);
+
+      // Redirect based on role
+      if (data.user.role === "admin") {
+        navigate("/dashboard");
+      } else if (data.user.role === "pharmacist") {
+        navigate("/pharmacist-dashboard");
+      } else if (data.user.role === "storekeeper") {
+        navigate("/storekeeper-dashboard");
+      }
+    } catch (error) {
+      console.error(
+        "Login failed. Server response:",
+        error.response?.data || error,
+      );
+      const message =
+        error.response?.data?.message || "Login failed. Please try again.";
+      setErrors({ general: message });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Left Side - Illustration (Hidden on mobile, only shows on desktop) */}
@@ -65,14 +121,24 @@ const Login = () => {
               </p>
             </div>
 
+            {/* General Error */}
+            {errors.general && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-600">{errors.general}</p>
+              </div>
+            )}
+
             {/* Form */}
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <FormInput
-                label="User ID"
-                placeholder="Enter your user identification number"
-                type="text"
-                name="userId"
+                label="Email"
+                placeholder="Enter your email"
+                type="email"
+                name="email"
                 className="mb-8"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
               />
               <FormInput
                 label="Password"
@@ -80,6 +146,9 @@ const Login = () => {
                 type="password"
                 name="password"
                 className="mb-2"
+                value={formData.password}
+                onChange={handleChange}
+                error={errors.password}
               />
 
               {/* Forgot Password */}
@@ -93,7 +162,12 @@ const Login = () => {
               </div>
 
               {/* Submit Button */}
-              <FormButton className="w-full mt-6 cursor-pointer">Log In</FormButton>
+              <FormButton
+                loading={loading}
+                className="w-full mt-6 cursor-pointer"
+              >
+                Log In
+              </FormButton>
             </Form>
           </div>
         </div>
