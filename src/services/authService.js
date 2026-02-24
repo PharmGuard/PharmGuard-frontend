@@ -4,7 +4,6 @@ const authService = {
   // Login
   login: async (email, password) => {
     // TEMPORARY MOCK: Bypass backend authentication to unblock development
-    // TODO: Revert this when backend credentials are fixed
     return new Promise((resolve) => {
       setTimeout(() => {
         let role = "admin";

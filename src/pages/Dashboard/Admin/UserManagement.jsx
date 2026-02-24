@@ -130,7 +130,7 @@ export default function UserManagement() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <div className="w-full max-w-6xl mx-auto px-8 py-6">
+      <div className="w-full mx-auto px-8 py-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2 font-semibold text-gray-800 text-base">

@@ -132,7 +132,7 @@ const recentActivity = [
 export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <div className="w-full max-w-6xl mx-auto px-8 py-6">
+      <div className="w-full mx-auto px-8 py-6">
         {/* Stats Row */}
         <div className="grid grid-cols-4 gap-5 mb-5">
           {statsData.map((stat) => (

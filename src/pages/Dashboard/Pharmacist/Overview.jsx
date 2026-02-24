@@ -1,5 +1,5 @@
-import AlertItem from "../../../components/pharmacist-dashboard/AlertItem";
-import StatCard from "../../../components/pharmacist-dashboard/StatsCard";
+import AlertItem from "../../../components/dashboard/AlertItem";
+import StatCard from "../../../components/dashboard/StatsCard";
 import Total from "../../../assets/dashbaord-icons/total.svg?react";
 import LowStock from "../../../assets/dashbaord-icons/low.svg?react";
 import Expire from "../../../assets/dashbaord-icons/expire.svg?react";
