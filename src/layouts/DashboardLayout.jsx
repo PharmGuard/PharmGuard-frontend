@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import Sidebar from "../components/Sidebar";
 import DashboardNavbar from "../components/DashboardNav";
 import Overview from "../assets/icons/overview.svg?react";
@@ -7,26 +8,74 @@ import UserManagement from "../assets/icons/user-management.svg?react";
 import AuditTrail from "../assets/icons/audit.svg?react";
 
 const DashboardLayout = () => {
+  const { user } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const navLinks = [
-    {
-      to: "/dashboard",
-      label: "Overview",
-      icon: <Overview className="w-5 h-5" />,
-      end: true,
-    },
-    {
-      to: "/dashboard/audit-trail",
-      label: "Audit Trail",
-      icon: <AuditTrail className="w-5 h-5" />,
-    },
-    {
-      to: "/dashboard/user-management",
-      label: "User Management",
-      icon: <UserManagement className="w-5 h-5" />,
-    },
-  ];
+  const getNavLinks = (role) => {
+    switch (role) {
+      case "admin":
+        return [
+          {
+            to: "/dashboard",
+            label: "Dashboard",
+            icon: <Overview className="w-5 h-5" />,
+            end: true,
+          },
+          {
+            to: "/dashboard/audit-trail",
+            label: "Audit Trail",
+            icon: <AuditTrail className="w-5 h-5" />,
+          },
+          {
+            to: "/dashboard/user-management",
+            label: "User Management",
+            icon: <UserManagement className="w-5 h-5" />,
+          },
+        ];
+      case "pharmacist":
+        return [
+          {
+            to: "/pharmacist-dashboard",
+            label: "Overview",
+            icon: <Overview className="w-5 h-5" />,
+            end: true,
+          },
+          {
+            to: "/pharmacist-dashboard/dispense",
+            label: "Dispense",
+            icon: <AuditTrail className="w-5 h-5" />,
+          },
+          {
+            to: "/pharmacist-dashboard/inventory",
+            label: "Inventory",
+            icon: <UserManagement className="w-5 h-5" />,
+          },
+        ];
+      case "storekeeper":
+        return [
+          {
+            to: "/storekeeper-dashboard",
+            label: "Overview",
+            icon: <Overview className="w-5 h-5" />,
+            end: true,
+          },
+          {
+            to: "/storekeeper-dashboard/stock",
+            label: "Stock Management",
+            icon: <AuditTrail className="w-5 h-5" />,
+          },
+          {
+            to: "/storekeeper-dashboard/suppliers",
+            label: "Suppliers",
+            icon: <UserManagement className="w-5 h-5" />,
+          },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const navLinks = getNavLinks(user?.role);
 
   const location = useLocation();
 
@@ -43,14 +92,14 @@ const DashboardLayout = () => {
 
   const currentTitle = currentMatch ? currentMatch.label : "Dashboard";
 
-  const user = {
-    name: "Dr. Sarah Johnson",
-    role: "Admin",
-    avatar: "/icons/avatar.svg",
+  const currentUser = {
+    name: user?.name || "User",
+    role: user?.role || "Guest",
+    avatar: user?.avatar || "/icons/avatar.svg",
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="h-screen overflow-hidden bg-gray-50 flex">
       {/* Sidebar */}
       <Sidebar
         isOpen={isSidebarOpen}
@@ -63,7 +112,7 @@ const DashboardLayout = () => {
         {/* Navbar */}
         <DashboardNavbar
           onMenuClick={() => setIsSidebarOpen(true)}
-          user={user}
+          user={currentUser}
           title={currentTitle}
         />
 
