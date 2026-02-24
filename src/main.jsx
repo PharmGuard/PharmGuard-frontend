@@ -9,12 +9,15 @@ import '@fontsource/inter/400.css'  // Regular
 import '@fontsource/inter/500.css'  // Medium
 import '@fontsource/inter/600.css'  // Semi-bold
 import '@fontsource/inter/700.css'  // Bold
+import { AuthProvider } from './contexts/AuthContexts'
 
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );
