@@ -5,7 +5,7 @@ import { Card, CardDescription, CardHeader } from "../../../components/Card";
 const Features = () => {
   return (
     <section className="py-20 bg-white" aria-label="Features Section">
-      <div className="containers">
+      <div className="containers" id="features">
         <div className="text-center mx-auto px-4" aria-label="Features Heading">
           <h2 className="text-3xl md:text-5xl font-bold text-primary mb-4">
             Smart Tools at a Glance

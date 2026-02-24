@@ -3,7 +3,7 @@ import data from "/src/utils/benefits.json";
 
 const Benefits = () => {
   return (
-    <section className="bg-white py-16" aria-label="Benefits Section">
+    <section className="bg-white py-16" id="benefits" aria-label="Benefits Section">
       <div className="container mx-auto px-4 space-y-12">
         <div className="text-center space-y-2" aria-label="Benefits Heading">
           <h2 className="text-primary text-3xl md:text-5xl font-bold">

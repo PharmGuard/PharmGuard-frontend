@@ -2,7 +2,7 @@ import React from 'react'
 
 const Overview = () => {
   return (
-    <section className="py-20 bg-secondary-bg" aria-label="Overview Section">
+    <section className="py-20 bg-secondary-bg" id='overview' aria-label="Overview Section">
       <div className="containers space-y-12">
         <div className='text-center' aria-label='Overview Heading'>
           <h2 className="text-3xl md:text-5xl font-bold text-primary mb-4">

@@ -27,7 +27,7 @@ const Navbar = () => {
           <ul className="hidden lg:flex items-center gap-10 text-primary-text text-lg font-medium">
             <li>
               <a
-                href="/"
+                href="#features"
                 className="hover:text-primary transition-colors duration-200"
               >
                 Features
@@ -35,7 +35,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="/dashboard"
+                href="#overview"
                 className="hover:text-primary transition-colors duration-200"
               >
                 Dashboard
@@ -43,7 +43,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="/"
+                href="#benefits"
                 className="hover:text-primary transition-colors duration-200"
               >
                 About
@@ -107,7 +107,7 @@ const Navbar = () => {
           <ul className="flex flex-col gap-1 pb-6 border-b border-gray-200">
             <li>
               <a
-                href="/"
+                href="#features"
                 onClick={() => setIsOpen(false)}
                 className="block py-3 px-4 text-primary-text text-lg font-medium rounded-lg hover:bg-gray-50 hover:text-primary transition-colors"
               >
@@ -116,7 +116,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="/dashboard"
+                href="#overview"
                 onClick={() => setIsOpen(false)}
                 className="block py-3 px-4 text-primary-text text-lg font-medium rounded-lg hover:bg-gray-50 hover:text-primary transition-colors"
               >
@@ -125,7 +125,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="/"
+                href="#benefits"
                 onClick={() => setIsOpen(false)}
                 className="block py-3 px-4 text-primary-text text-lg font-medium rounded-lg hover:bg-gray-50 hover:text-primary transition-colors"
               >
