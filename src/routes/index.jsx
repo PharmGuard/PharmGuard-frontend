@@ -97,7 +97,7 @@ export const routes = [
     ],
   },
   {
-    path: "/stockkeeper-dashboard",
+    path: "/storekeeper-dashboard",
     element: <ProtectedRoute />,
     children: [
       {
