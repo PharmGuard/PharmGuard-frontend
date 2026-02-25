@@ -6,15 +6,13 @@ import authService from "../../../services/authService";
 import toast from "react-hot-toast";
 import { toastConfig } from "../../../utils/utils";
 
-const ResetPassword = () => {
+const VerifyEmail = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const email = searchParams.get("email") || "";
 
   const [form, setForm] = useState({
+    email: searchParams.get("email") || "",
     otp: "",
-    password: "",
-    confirmPassword: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,19 +22,14 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      toast.error("Passwords do not match", toastConfig);
-      return;
-    }
-
     setIsSubmitting(true);
     try {
-      await authService.resetPassword(email, form.otp, form.password);
-      toast.success("Password reset successfully! Please login.", toastConfig);
-      navigate("/auth/reset-success");
+      await authService.verifyEmail(form.email, form.otp);
+      toast.success("Email verified successfully!", toastConfig);
+      navigate("/auth/verify-success");
     } catch (error) {
-      console.error("Reset password error:", error);
-      const msg = error.response?.data?.message || "Failed to reset password";
+      console.error("Verification error:", error);
+      const msg = error.response?.data?.message || "Verification failed";
       toast.error(msg, toastConfig);
     } finally {
       setIsSubmitting(false);
@@ -44,11 +37,11 @@ const ResetPassword = () => {
   };
 
   const handleResendOTP = async () => {
-    if (!email) {
-      return toast.error("Email is missing from URL", toastConfig);
+    if (!form.email) {
+      return toast.error("Email is required to resend OTP", toastConfig);
     }
     try {
-      await authService.forgotPassword(email);
+      await authService.forgotPassword(form.email);
       toast.success("OTP resent successfully", toastConfig);
     } catch (error) {
       toast.error(
@@ -60,20 +53,20 @@ const ResetPassword = () => {
 
   return (
     <div className="flex flex-col min-h-screen px-4">
-      <img src="/logo.svg" alt="PharmGuard Logo" className="w-50 h-auto my-8" />
-      <div className="flex flex-col bg-white p-8">
+      <img src="/logo.svg" alt="PharmGuard Logo" className="w-50 h-auto my-6" />
+      <div className="flex flex-col bg-white p-5">
         <Link
-          to="/"
-          className="flex items-center gap-2 text-lg text-primary hover:underline w-fit mb-8"
+          to="/auth/login"
+          className="flex items-center gap-2 text-lg text-primary hover:underline w-fit"
         >
           <BackArrow className="w-4 h-4" />
-          Back
+          Back to Login
         </Link>
         <div className="flex items-center justify-center">
           <img
-            src="/auth/password-reset.svg"
-            alt="Reset Password Illustration"
-            className="w-full max-w-xl"
+            src="/auth/verify-illustration.svg"
+            alt="Verify Email Illustration"
+            className="w-full max-w-md"
           />
         </div>
       </div>
@@ -82,18 +75,27 @@ const ResetPassword = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h2 className="text-3xl lg:text-4xl text-primary font-bold mb-3">
-              Reset Password
+              Verify Email
             </h2>
             <p className="text-primary-text text-lg">
-              Enter a new password for your account
+              Enter the OTP sent to your email to verify your account.
             </p>
           </div>
 
-          <Form className="space-y-8 mb-2" onSubmit={handleSubmit}>
+          <Form className="space-y-8" onSubmit={handleSubmit}>
+            <FormInput
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              className="w-full"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
             <FormInput
               type="text"
               name="otp"
-              placeholder="Enter the 4 digit code sent to your email"
+              placeholder="Enter the 4 digit code"
               className="w-full"
               maxLength={4}
               value={form.otp}
@@ -102,29 +104,11 @@ const ResetPassword = () => {
               pattern="[0-9]*"
               required
             />
-            <FormInput
-              type="password"
-              name="password"
-              placeholder="Enter New Password"
-              className="w-full"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-            <FormInput
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm New Password"
-              className="w-full"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              required
-            />
             <FormButton
               className="w-full mt-6 cursor-pointer"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Resetting..." : "Reset Password"}
+              {isSubmitting ? "Verifying..." : "Verify Email"}
             </FormButton>
           </Form>
 
@@ -143,4 +127,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default VerifyEmail;
