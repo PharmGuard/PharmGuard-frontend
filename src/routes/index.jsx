@@ -15,6 +15,7 @@ import StorekeeperOverview from "../pages/Dashboard/StockKeeper/Overview";
 import DispenseMedication from "../pages/Dashboard/Pharmacist/DispenseMedication";
 import Inventory from "../pages/Dashboard/Pharmacist/Inventory";
 import VerifyEmail from "../pages/Auth/VerifyMail";
+import ProfilePage from "../pages/Dashboard/Profile";
 
 
 export const routes = [
@@ -74,6 +75,10 @@ export const routes = [
             path: "audit-trail",
             element: <AuditTrail />,
           },
+          {
+            path: "profile",
+            element: <ProfilePage />,
+          },
         ],
       },
     ],
@@ -97,6 +102,10 @@ export const routes = [
             path: "inventory",
             element: <Inventory />,
           },
+          {
+            path: "profile",
+            element: <ProfilePage />,
+          },
         ],
       },
     ],
@@ -119,6 +128,10 @@ export const routes = [
           {
             path: "suppliers",
             element: <div>Suppliers Page</div>,
+          },
+          {
+            path: "profile",
+            element: <ProfilePage />,
           },
         ],
       },

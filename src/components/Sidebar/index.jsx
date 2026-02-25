@@ -73,10 +73,23 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
 
         {/* Logout Button */}
         <div className="p-4 border-t border-white space-y-4">
-          <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:border hover:bg-white hover:text-primary transition-all duration-200 [&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200">
+          <NavLink
+            to="profile"
+            onClick={() => onClose && onClose()}
+            className={({ isActive }) =>
+              clsx(
+                "flex items-center gap-3 px-4 py-3 rounded-lg w-full",
+                "text-sm font-medium transition-all duration-200",
+                "[&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200",
+                isActive
+                  ? "text-primary shadow-sm border border-white text-white"
+                  : "text-white/80 hover:border hover:bg-white hover:text-primary",
+              )
+            }
+          >
             <User className="w-6 h-6" />
             <span>Profile</span>
-          </button>
+          </NavLink>
           <button
             onClick={() => setShowLogoutModal(true)}
             className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:border hover:bg-white hover:text-primary transition-all duration-200 [&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200"
