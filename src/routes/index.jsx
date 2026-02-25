@@ -90,7 +90,7 @@ export const routes = [
           },
           {
             path: "inventory",
-            element: <Inventory />, // Placeholder
+            element: <Inventory />, 
           },
         ],
       },
@@ -109,11 +109,11 @@ export const routes = [
           },
           {
             path: "stock",
-            element: <div>Stock Management Page</div>, // Placeholder
+            element: <div>Stock Management Page</div>,
           },
           {
             path: "suppliers",
-            element: <div>Suppliers Page</div>, // Placeholder
+            element: <div>Suppliers Page</div>,
           },
         ],
       },

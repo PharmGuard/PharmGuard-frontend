@@ -1,40 +1,6 @@
-import { useState } from "react";
-
-const auditData = [
-  {
-    id: 1,
-    timestamp: "2/10/2024, 6:20:00 PM",
-    user: "John Martinez",
-    action: "DISPENSED",
-    medication: "Paracetamol 500mg",
-    batch: "PCM-2024-005",
-    quantity: 20,
-    notes: "Patient prescription #P-1234",
-    notesLink: true,
-  },
-  {
-    id: 2,
-    timestamp: "2/11/2024, 1:15:00 PM",
-    user: "John Martinez",
-    action: "DISPENSED",
-    medication: "Amoxicillin 500mg",
-    batch: "AMX-2024-001",
-    quantity: 30,
-    notes: "Outpatient prescription",
-    notesLink: true,
-  },
-  {
-    id: 3,
-    timestamp: "2/8/2024, 1:00:00 PM",
-    user: "John Martinez",
-    action: "DISPENSED",
-    medication: "Omeprazole 20mg",
-    batch: "OME-2024-002",
-    quantity: 15,
-    notes: "–",
-    notesLink: false,
-  },
-];
+import { useState, useEffect } from "react";
+import adminService from "../../../services/adminService";
+import Loader from "../../../components/Loader";
 
 // Icons
 const ActivityIcon = () => (
@@ -86,6 +52,9 @@ const DownloadIcon = () => (
 );
 
 export default function AuditTrail() {
+  const [logs, setLogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
     action: "",
     user: "",
@@ -93,14 +62,69 @@ export default function AuditTrail() {
     toDate: "",
   });
 
+  const fetchLogs = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await adminService.getAuditLogs();
+      let logsList = [];
+      if (Array.isArray(data)) {
+        logsList = data;
+      } else if (data && Array.isArray(data.logs)) {
+        logsList = data.logs;
+      } else if (data && Array.isArray(data.data)) {
+        logsList = data.data;
+      }
+
+      const mappedLogs = logsList.map((log) => ({
+        id: log._id || log.id,
+        rawDate: log.timestamp || log.createdAt,
+        timestamp: new Date(log.timestamp || log.createdAt).toLocaleString(),
+        user:
+          typeof log.user === "object"
+            ? log.user.username
+            : log.user || "Unknown",
+        action: log.action || "UNKNOWN",
+        medication: log.medication || log.details?.medication || "-",
+        batch: log.batch || log.details?.batch || "-",
+        quantity: log.quantity || log.details?.quantity || "-",
+        notes: log.notes || log.details?.notes || "-",
+        notesLink: false,
+      }));
+      setLogs(mappedLogs);
+    } catch (error) {
+      console.error("Failed to fetch audit logs:", error);
+      setError("Failed to load audit logs. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
   const handleFilter = (e) => {
     setFilters((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const filtered = auditData.filter((row) => {
+  const filtered = logs.filter((row) => {
+    const matchesAction = row.action
+      .toLowerCase()
+      .includes(filters.action.toLowerCase());
+    const matchesUser = row.user
+      .toLowerCase()
+      .includes(filters.user.toLowerCase());
+    const rowDate = new Date(row.rawDate);
+    const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+    const toDate = filters.toDate ? new Date(filters.toDate) : null;
+    if (toDate) toDate.setHours(23, 59, 59, 999);
+
     return (
-      row.action.toLowerCase().includes(filters.action.toLowerCase()) &&
-      row.user.toLowerCase().includes(filters.user.toLowerCase())
+      matchesAction &&
+      matchesUser &&
+      (!fromDate || rowDate >= fromDate) &&
+      (!toDate || rowDate <= toDate)
     );
   });
 
@@ -138,7 +162,7 @@ export default function AuditTrail() {
                   {f.label}
                 </label>
                 <input
-                  type="text"
+                  type={f.name.includes("Date") ? "date" : "text"}
                   name={f.name}
                   value={filters[f.name]}
                   onChange={handleFilter}
@@ -173,44 +197,89 @@ export default function AuditTrail() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((row, i) => (
-                <tr
-                  key={row.id}
-                  className={`border-b border-gray-50 hover:bg-blue-50/30 transition-colors ${
-                    i === filtered.length - 1 ? "border-b-0" : ""
-                  }`}
-                >
-                  <td className="px-4 py-3.5 text-gray-600">{row.timestamp}</td>
-                  <td className="px-4 py-3.5 text-gray-700 font-medium">
-                    {row.user}
-                  </td>
-                  <td className="px-4 py-3.5">
-                    <span className="inline-block bg-blue-50 text-blue-500 border border-blue-200 rounded-md px-2 py-0.5 text-xs font-semibold tracking-wide">
-                      {row.action}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3.5 text-gray-700">
-                    {row.medication}
-                  </td>
-                  <td className="px-4 py-3.5 text-gray-500">{row.batch}</td>
-                  <td className="px-4 py-3.5 text-gray-700 font-medium">
-                    {row.quantity}
-                  </td>
-                  <td className="px-4 py-3.5">
-                    {row.notesLink ? (
-                      <a href="#" className="text-blue-500 hover:underline">
-                        {row.notes}
-                      </a>
-                    ) : (
-                      <span className="text-gray-300">{row.notes}</span>
-                    )}
+              {isLoading ? (
+                <tr>
+                  <td colSpan="7" className="px-4 py-12">
+                    <Loader text="Loading audit logs..." />
                   </td>
                 </tr>
-              ))}
+              ) : error ? (
+                <tr>
+                  <td colSpan="7" className="px-4 py-12 text-center">
+                    <p className="text-red-500 font-medium mb-2">{error}</p>
+                    <button
+                      onClick={fetchLogs}
+                      className="text-blue-600 hover:text-blue-800 text-sm font-medium underline"
+                    >
+                      Try Again
+                    </button>
+                  </td>
+                </tr>
+              ) : filtered.length === 0 ? (
+                <tr>
+                  <td colSpan="7" className="px-4 py-12 text-center">
+                    <div className="flex flex-col items-center justify-center text-gray-400">
+                      <svg
+                        className="w-12 h-12 mb-3 text-gray-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      <p className="text-base font-medium text-gray-500">
+                        No records found
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                filtered.map((row, i) => (
+                  <tr
+                    key={row.id}
+                    className={`border-b border-gray-50 hover:bg-blue-50/30 transition-colors ${
+                      i === filtered.length - 1 ? "border-b-0" : ""
+                    }`}
+                  >
+                    <td className="px-4 py-3.5 text-gray-600">
+                      {row.timestamp}
+                    </td>
+                    <td className="px-4 py-3.5 text-gray-700 font-medium">
+                      {row.user}
+                    </td>
+                    <td className="px-4 py-3.5">
+                      <span className="inline-block bg-blue-50 text-blue-500 border border-blue-200 rounded-md px-2 py-0.5 text-xs font-semibold tracking-wide">
+                        {row.action}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3.5 text-gray-700">
+                      {row.medication}
+                    </td>
+                    <td className="px-4 py-3.5 text-gray-500">{row.batch}</td>
+                    <td className="px-4 py-3.5 text-gray-700 font-medium">
+                      {row.quantity}
+                    </td>
+                    <td className="px-4 py-3.5">
+                      {row.notesLink ? (
+                        <a href="#" className="text-blue-500 hover:underline">
+                          {row.notes}
+                        </a>
+                      ) : (
+                        <span className="text-gray-300">{row.notes}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
           <div className="px-4 py-3 border-t border-gray-100 text-xs text-gray-400">
-            Showing {filtered.length} of {auditData.length} records
+            Showing {filtered.length} of {logs.length} records
           </div>
         </div>
       </div>

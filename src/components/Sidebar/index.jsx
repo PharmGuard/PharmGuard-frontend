@@ -5,7 +5,6 @@ import Logo from "../../assets/icons/dashLogo.svg?react";
 import Logout from "../../assets/icons/logout.svg?react";
 import User from "../../assets/dashbaord-icons/user.svg?react";
 
-
 const Sidebar = ({ isOpen, onClose, navLinks }) => {
   return (
     <>
@@ -38,7 +37,7 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-4">
           {navLinks.map((link) => (
             <NavLink
               key={link.to}
@@ -49,9 +48,10 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
                 clsx(
                   "flex items-center gap-3 px-4 py-3 rounded-lg",
                   "text-sm font-medium transition-all duration-200",
+                  "[&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200",
                   isActive
                     ? "text-primary shadow-sm border border-white text-white"
-                    : "text-white/80 hover:border hover:border-white hover:text-white",
+                    : "text-white/80 hover:border hover:bg-white hover:text-primary",
                 )
               }
             >
@@ -62,12 +62,12 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t border-white">
-          <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200">
+        <div className="p-4 border-t border-white space-y-4">
+          <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:border hover:bg-white hover:text-primary transition-all duration-200 [&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200">
             <User className="w-6 h-6" />
             <span>Profile</span>
           </button>
-          <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200">
+          <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:border hover:bg-white hover:text-primary transition-all duration-200 [&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200">
             <Logout className="w-6 h-6" />
             <span>Logout</span>
           </button>
