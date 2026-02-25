@@ -1,11 +1,21 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import Logo from "../../assets/icons/dashLogo.svg?react";
 import Logout from "../../assets/icons/logout.svg?react";
 import User from "../../assets/dashbaord-icons/user.svg?react";
+import authService from "../../services/authService";
+import ConfirmationModal from "../ConfirmationModal";
 
 const Sidebar = ({ isOpen, onClose, navLinks }) => {
+  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleLogout = () => {
+    authService.logout();
+    navigate("/auth/login");
+  };
+
   return (
     <>
       {/* Mobile Overlay */}
@@ -67,12 +77,25 @@ const Sidebar = ({ isOpen, onClose, navLinks }) => {
             <User className="w-6 h-6" />
             <span>Profile</span>
           </button>
-          <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:border hover:bg-white hover:text-primary transition-all duration-200 [&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200">
+          <button
+            onClick={() => setShowLogoutModal(true)}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-sm font-medium text-white/80 hover:border hover:bg-white hover:text-primary transition-all duration-200 [&_svg]:stroke-current [&_svg]:fill-none [&_svg_*]:stroke-current [&_svg]:transition-colors [&_svg]:duration-200"
+          >
             <Logout className="w-6 h-6" />
             <span>Logout</span>
           </button>
         </div>
       </aside>
+
+      <ConfirmationModal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        onConfirm={handleLogout}
+        title="Logout Confirmation"
+        message="Are you sure you want to log out of PharmGuard?"
+        confirmText="Confirm"
+        isDanger
+      />
     </>
   );
 };
