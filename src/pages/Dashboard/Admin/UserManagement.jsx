@@ -12,8 +12,8 @@ export default function UserManagement() {
 
   const [showCreateForm, setShowCreateForm] = useState(false);
 
-  const fetchUsers = async () => {
-    setIsLoading(true);
+  const fetchUsers = async (showLoading = true) => {
+    if (showLoading) setIsLoading(true);
     try {
       const data = await adminService.getEmployees();
 
@@ -41,7 +41,7 @@ export default function UserManagement() {
       console.error("Error fetching users:", error);
       toast.error("Error fetching users", toastConfig);
     } finally {
-      setIsLoading(false);
+      if (showLoading) setIsLoading(false);
     }
   };
 
@@ -53,7 +53,7 @@ export default function UserManagement() {
     try {
       await adminService.addEmployee(newUserData);
       toast.success("User added successfully");
-      fetchUsers();
+      await fetchUsers(false);
       setShowCreateForm(false);
     } catch (error) {
       console.error("Error adding user:", error);
