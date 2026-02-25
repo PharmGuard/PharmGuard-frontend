@@ -3,24 +3,8 @@ import api from "../api/axios";
 const authService = {
   // Login
   login: async (email, password) => {
-    // TEMPORARY MOCK: Bypass backend authentication to unblock development
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        let role = "admin";
-        if (email.includes("pharmacist")) role = "pharmacist";
-        if (email.includes("storekeeper")) role = "storekeeper";
-
-        resolve({
-          user: {
-            id: "1",
-            name: "Test User",
-            email: email,
-            role: role,
-          },
-          token: "mock-jwt-token-12345",
-        });
-      }, 1000);
-    });
+    const response = await api.post("/auth/login", { email, password });
+    return response.data;
   },
 
   // Setup password (first time with OTP)
@@ -57,11 +41,8 @@ const authService = {
 
   // Get profile
   getProfile: async () => {
-    // Mock profile fetch to prevent 401 errors with the mock token
-    return new Promise((resolve) => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      resolve(user || { name: "Test User", email: "test@example.com" });
-    });
+    const response = await api.get("/auth/profile");
+    return response.data;
   },
 
   // Logout (client-side)
