@@ -1,10 +1,31 @@
 import api from "../api/axios";
+import toast from "react-hot-toast";
+
+const toastConfig = {
+  position: "top-right",
+  style: {
+    background: "#fff",
+    color: "#000",
+  },
+};
 
 const authService = {
   // Login
   login: async (email, password) => {
-    const response = await api.post("/auth/login", { email, password });
-    return response.data;
+    try {
+      const response = await api.post("/auth/login", { email, password });
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+      if (response.data.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+      }
+      toast.success("Login successful", toastConfig);
+      return response.data;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Login failed", toastConfig);
+      throw error;
+    }
   },
 
   // Setup password (first time with OTP)
