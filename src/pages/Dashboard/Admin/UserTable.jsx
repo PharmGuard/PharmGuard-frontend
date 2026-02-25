@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import RoleBadge from "./RoleBadge";
 import StatusBadge from "./StatusBadge";
 import DeactivateIcon from "../../../assets/dashbaord-icons/deactivate.svg?react";
 import Loader from "../../../components/Loader";
+import ConfirmationModal from "../../../components/ConfirmationModal";
 
 const ActivateIcon = () => (
   <svg
@@ -23,14 +24,26 @@ const ActivateIcon = () => (
 export default function UserTable({ users, setUsers, isLoading }) {
   const activeCount = users.filter((u) => u.status === "Active").length;
 
-  const toggleStatus = (id) => {
-    setUsers((prev) =>
-      prev.map((u) =>
-        u.id === id
-          ? { ...u, status: u.status === "Active" ? "Inactive" : "Active" }
-          : u,
-      ),
-    );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleActionClick = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmAction = () => {
+    if (selectedUser) {
+      setUsers((prev) =>
+        prev.map((u) =>
+          u.id === selectedUser.id
+            ? { ...u, status: u.status === "Active" ? "Inactive" : "Active" }
+            : u,
+        ),
+      );
+    }
+    setIsModalOpen(false);
+    setSelectedUser(null);
   };
 
   return (
@@ -83,7 +96,7 @@ export default function UserTable({ users, setUsers, isLoading }) {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <button
-                        onClick={() => toggleStatus(user.id)}
+                        onClick={() => handleActionClick(user)}
                         className={`flex items-center gap-1.5 text-sm ${
                           user.status === "Active"
                             ? "text-red-600 hover:text-amber-800"
@@ -110,6 +123,22 @@ export default function UserTable({ users, setUsers, isLoading }) {
         Total users: {users.length} ({activeCount} active,{" "}
         {users.length - activeCount} inactive)
       </div>
+
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmAction}
+        title={
+          selectedUser?.status === "Active"
+            ? "Deactivate User"
+            : "Activate User"
+        }
+        message={`Are you sure you want to ${
+          selectedUser?.status === "Active" ? "deactivate" : "activate"
+        } ${selectedUser?.username}?`}
+        confirmText="ok"
+        isDanger={selectedUser?.status === "Active"}
+      />
     </div>
   );
 }

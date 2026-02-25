@@ -122,12 +122,16 @@ export const routes = [
             element: <StorekeeperOverview />,
           },
           {
-            path: "stock",
-            element: <div>Stock Management Page</div>,
+            path: "add-stock",
+            element: <div>Add Stock Page</div>,
           },
           {
-            path: "suppliers",
-            element: <div>Suppliers Page</div>,
+            path: "inventory",
+            element: <div>Inventory page</div>,
+          },
+          {
+            path: "stock-reports",
+            element: <div>Stock Reports</div>,
           },
           {
             path: "profile",
