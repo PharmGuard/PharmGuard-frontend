@@ -51,7 +51,8 @@ export default function UserManagement() {
 
   const handleAddUser = async (newUserData) => {
     try {
-      await adminService.addEmployee(newUserData);
+      const response = await adminService.addEmployee(newUserData);
+      console.log("User created response:", response); 
       toast.success("User added successfully");
       await fetchUsers(false);
       setShowCreateForm(false);

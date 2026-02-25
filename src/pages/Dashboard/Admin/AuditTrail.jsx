@@ -94,6 +94,13 @@ export default function AuditTrail() {
       setLogs(mappedLogs);
     } catch (error) {
       console.error("Failed to fetch audit logs:", error);
+      if (
+        error.response &&
+        (error.response.status === 404 || error.response.status === 500)
+      ) {
+        setLogs([]);
+        return;
+      }
       setError("Failed to load audit logs. Please try again later.");
     } finally {
       setIsLoading(false);
