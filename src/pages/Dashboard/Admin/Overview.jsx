@@ -4,8 +4,6 @@ import LowStock from "../../../assets/dashbaord-icons/low.svg?react";
 import Expire from "../../../assets/dashbaord-icons/expire.svg?react";
 import Dispensed from "../../../assets/dashbaord-icons/dispensed.svg?react";
 
-
-
 const ActivityIcon = () => (
   <svg
     className="w-4 h-4 text-blue-500"
@@ -91,9 +89,9 @@ const recentActivity = [
 export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <div className="w-full mx-auto px-8 py-6">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Stats Row */}
-        <div className="grid grid-cols-4 gap-5 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
           {statsData.map((stat) => (
             <div
               key={stat.label}
@@ -117,7 +115,7 @@ export default function Dashboard() {
         </div>
 
         {/* Middle Row: Low Stock + Expiring Soon */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
           {/* Low Stock Alerts */}
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
