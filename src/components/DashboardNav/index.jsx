@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Notification from "../../assets/icons/notification.svg?react";
+import authService from "../../services/authService";
 
-const DashboardNavbar = ({ onMenuClick, user, title }) => {
+const DashboardNavbar = ({ onMenuClick, user: propUser, title }) => {
+  const [fetchedUser, setFetchedUser] = useState(null);
+  const user = propUser || fetchedUser;
+
+  useEffect(() => {
+    if (!propUser) {
+      const fetchUser = async () => {
+        try {
+          const data = await authService.getProfile();
+          setFetchedUser({
+            name: data.username || data.fullName,
+            role: data.role,
+            avatar: data.avatarUrl,
+          });
+        } catch (error) {
+          console.error("Failed to fetch user for navbar", error);
+        }
+      };
+      fetchUser();
+    }
+  }, [propUser]);
+
   return (
     <nav className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-30">
       <div className="flex items-center justify-between">
@@ -44,9 +66,13 @@ const DashboardNavbar = ({ onMenuClick, user, title }) => {
             />
             <div className="hidden md:block">
               <p className="text-sm font-medium text-primary-text">
-                {user?.name || "Dr. Sarah Johnson"}
+                {user?.name || "Loading..."}
               </p>
-              <p className="text-xs text-gray-500">{user?.role || "Admin"}</p>
+              <p className="text-xs text-gray-500">
+                {user?.role
+                  ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
+                  : ""}
+              </p>
             </div>
           </div>
 
