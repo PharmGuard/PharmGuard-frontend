@@ -14,6 +14,8 @@ import PharmacistOverview from "../pages/Dashboard/Pharmacist/Overview";
 import StorekeeperOverview from "../pages/Dashboard/StockKeeper/Overview";
 import DispenseMedication from "../pages/Dashboard/Pharmacist/DispenseMedication";
 import Inventory from "../pages/Dashboard/Pharmacist/Inventory";
+import VerifyEmail from "../pages/Auth/VerifyMail";
+import ProfilePage from "../pages/Dashboard/Profile";
 
 
 export const routes = [
@@ -48,6 +50,10 @@ export const routes = [
         path: "reset-success",
         element: <ResetSuccess />,
       },
+      {
+        path: "verify-email",
+        element: <VerifyEmail />,
+      },
     ],
   },
   {
@@ -69,6 +75,10 @@ export const routes = [
             path: "audit-trail",
             element: <AuditTrail />,
           },
+          {
+            path: "profile",
+            element: <ProfilePage />,
+          },
         ],
       },
     ],
@@ -86,11 +96,15 @@ export const routes = [
           },
           {
             path: "dispense",
-            element: <DispenseMedication />
+            element: <DispenseMedication />,
           },
           {
             path: "inventory",
-            element: <Inventory />, // Placeholder
+            element: <Inventory />,
+          },
+          {
+            path: "profile",
+            element: <ProfilePage />,
           },
         ],
       },
@@ -108,12 +122,20 @@ export const routes = [
             element: <StorekeeperOverview />,
           },
           {
-            path: "stock",
-            element: <div>Stock Management Page</div>, // Placeholder
+            path: "add-stock",
+            element: <div>Add Stock Page</div>,
           },
           {
-            path: "suppliers",
-            element: <div>Suppliers Page</div>, // Placeholder
+            path: "inventory",
+            element: <div>Inventory page</div>,
+          },
+          {
+            path: "stock-reports",
+            element: <div>Stock Reports</div>,
+          },
+          {
+            path: "profile",
+            element: <ProfilePage />,
           },
         ],
       },

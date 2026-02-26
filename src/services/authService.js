@@ -1,26 +1,31 @@
 import api from "../api/axios";
+import toast from "react-hot-toast";
+
+const toastConfig = {
+  position: "top-right",
+  style: {
+    background: "#fff",
+    color: "#000",
+  },
+};
 
 const authService = {
   // Login
   login: async (email, password) => {
-    // TEMPORARY MOCK: Bypass backend authentication to unblock development
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        let role = "admin";
-        if (email.includes("pharmacist")) role = "pharmacist";
-        if (email.includes("storekeeper")) role = "storekeeper";
-
-        resolve({
-          user: {
-            id: "1",
-            name: "Test User",
-            email: email,
-            role: role,
-          },
-          token: "mock-jwt-token-12345",
-        });
-      }, 1000);
-    });
+    try {
+      const response = await api.post("/auth/login", { email, password });
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+      if (response.data.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+      }
+      toast.success("Login successful", toastConfig);
+      return response.data;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Login failed", toastConfig);
+      throw error;
+    }
   },
 
   // Setup password (first time with OTP)
@@ -57,11 +62,8 @@ const authService = {
 
   // Get profile
   getProfile: async () => {
-    // Mock profile fetch to prevent 401 errors with the mock token
-    return new Promise((resolve) => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      resolve(user || { name: "Test User", email: "test@example.com" });
-    });
+    const response = await api.get("/auth/profile");
+    return response.data;
   },
 
   // Logout (client-side)

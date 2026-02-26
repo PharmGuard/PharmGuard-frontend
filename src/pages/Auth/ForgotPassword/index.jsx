@@ -1,9 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import BackArrow from "../../../assets/icons/back-arrow.svg?react";
-import { Form,FormInput, FormButton } from "../../../components/Form";
+import { Form, FormInput, FormButton } from "../../../components/Form";
+import authService from "../../../services/authService";
+import toast from "react-hot-toast";
+import { toastConfig } from "../../../utils/utils";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await authService.forgotPassword(email);
+      toast.success("Password reset code sent", toastConfig);
+      navigate(`/auth/reset-password?email=${encodeURIComponent(email)}`);
+    } catch (error) {
+      console.error("Forgot password error:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to send reset code",
+        toastConfig,
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen px-4">
       <img src="/logo.svg" alt="PharmGuard Logo" className="w-50 h-auto my-8" />
@@ -35,15 +60,21 @@ const ForgotPassword = () => {
             </p>
           </div>
 
-          <Form className="space-y-8 mb-2">
+          <Form className="space-y-8 mb-2" onSubmit={handleSubmit}>
             <FormInput
               type="email"
               name="email"
               placeholder="Email Address"
               className="w-full"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
-            <FormButton className="w-full mt-6 cursor-pointer">
-              Send Reset Code
+            <FormButton
+              className="w-full mt-6 cursor-pointer"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send Reset Code"}
             </FormButton>
           </Form>
         </div>

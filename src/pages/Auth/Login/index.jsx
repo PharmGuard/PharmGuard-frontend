@@ -85,7 +85,7 @@ const Login = () => {
           <img
             src="/auth/login-illustration.svg"
             alt="Login Illustration"
-            className="w-full max-w-2xl"
+            className="w-full max-w-2xl object-contain"
           />
         </div>
       </div>

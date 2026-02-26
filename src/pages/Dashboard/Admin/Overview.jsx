@@ -1,51 +1,8 @@
 import React from "react";
-const PackageIcon = () => (
-  <svg
-    className="w-5 h-5 text-green-500"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 10V11"
-    />
-  </svg>
-);
-
-const AlertTriangleIcon = ({ className = "w-5 h-5 text-red-400" }) => (
-  <svg
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
-    />
-  </svg>
-);
-
-const CalendarIcon = () => (
-  <svg
-    className="w-5 h-5 text-yellow-500"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-    />
-  </svg>
-);
+import Total from "../../../assets/dashbaord-icons/total.svg?react";
+import LowStock from "../../../assets/dashbaord-icons/low.svg?react";
+import Expire from "../../../assets/dashbaord-icons/expire.svg?react";
+import Dispensed from "../../../assets/dashbaord-icons/dispensed.svg?react";
 
 const ActivityIcon = () => (
   <svg
@@ -83,14 +40,14 @@ const DispensedBadge = () => (
 );
 
 const statsData = [
-  { label: "Total Medications", value: 125, icon: <PackageIcon /> },
+  { label: "Total Medications", value: 125, icon: <Total /> },
   {
     label: "Low Stock Items",
     value: 2,
-    icon: <AlertTriangleIcon className="w-5 h-5 text-red-400" />,
+    icon: <LowStock className="w-5 h-5 text-red-400" />,
   },
-  { label: "Expiring Soon (90d)", value: 0, icon: <CalendarIcon /> },
-  { label: "Dispensed Today", value: 42, icon: null },
+  { label: "Expiring Soon (90d)", value: 0, icon: <Expire /> },
+  { label: "Dispensed Today", value: 42, icon: <Dispensed /> },
 ];
 
 const lowStockItems = [
@@ -132,9 +89,9 @@ const recentActivity = [
 export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <div className="w-full mx-auto px-8 py-6">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Stats Row */}
-        <div className="grid grid-cols-4 gap-5 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
           {statsData.map((stat) => (
             <div
               key={stat.label}
@@ -158,23 +115,23 @@ export default function Dashboard() {
         </div>
 
         {/* Middle Row: Low Stock + Expiring Soon */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
           {/* Low Stock Alerts */}
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
               <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-700">
-                <AlertTriangleIcon className="w-4 h-4 text-yellow-500" />
+                <LowStock className="w-5 h-5" />
                 Low Stock Alerts
               </div>
-              <span className="text-xs font-semibold bg-red-500 text-white px-2.5 py-1 rounded-full">
+              <span className="ml-auto text-sm font-medium text-red-700 bg-red-100/50 px-3 py-2 rounded-sm">
                 2 Critical
               </span>
             </div>
-            <div className="divide-y divide-gray-50">
+            <div className="divide-y divide-gray-50 p-3 space-y-3">
               {lowStockItems.map((item) => (
                 <div
                   key={item.name}
-                  className="px-4 py-3 bg-red-50/40 hover:bg-red-50/70 transition-colors"
+                  className="px-4 py-3 bg-red-100/50 rounded-sm transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <div>
