@@ -7,7 +7,6 @@ export default function StockReports() {
 
   const handleGenerate = (id) => {
     setLoadingReportId(id);
-    // Simulate API call
     setTimeout(() => setLoadingReportId(null), 2000);
   };
 
@@ -71,7 +70,6 @@ export default function StockReports() {
           {reports.map((r) => (
             <ReportCard
               key={r.id}
-              Icon={r.icon}
               title={r.title}
               description={r.description}
               onGenerate={() => handleGenerate(r.id)}

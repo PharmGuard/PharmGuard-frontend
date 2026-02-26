@@ -18,6 +18,7 @@ import AddStock from "../pages/Dashboard/StockKeeper/AddStock";
 import StockReports from "../pages/Dashboard/StockKeeper/Stockreports";
 import VerifyEmail from "../pages/Auth/VerifyMail";
 import ProfilePage from "../pages/Dashboard/Profile";
+import NotFound from "../pages/NotFound";
 
 
 export const routes = [
@@ -142,5 +143,9 @@ export const routes = [
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];

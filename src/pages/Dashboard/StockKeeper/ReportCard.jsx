@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReportCard = ({ title, description, onGenerate, loading }) => (
+const ReportCard = ({title, description, onGenerate, loading }) => (
   <div
     style={{
       border: "1px solid #e5e7eb",
