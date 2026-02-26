@@ -49,35 +49,42 @@ export default function UserManagement() {
     fetchUsers();
   }, []);
 
-  const handleAddUser = async (newUserData) => {
-    try {
-      const response = await adminService.addEmployee(newUserData);
-      if (
-        response.message &&
-        response.message.toLowerCase().includes("email failed")
-      ) {
-        toast(response.message, {
-          ...toastConfig,
-          duration: 15000, // Show for 15 seconds so you can copy the OTP
-          icon: "⚠️",
-        });
-      } else {
-        toast.success(
-          response.message || "User added successfully",
+  const handleAddUser = (newUserData) => {
+    // Close the form immediately so the user can move on
+    setShowCreateForm(false);
+
+    // Perform the API request in the background
+    adminService
+      .addEmployee(newUserData)
+      .then(async (response) => {
+        if (
+          response.message &&
+          response.message.toLowerCase().includes("email failed")
+        ) {
+          toast(response.message, {
+            ...toastConfig,
+            duration: 15000, // Show for 15 seconds so you can copy the OTP
+            icon: "⚠️",
+          });
+        } else {
+          toast.success(
+            response.message || "User added successfully",
+            toastConfig,
+          );
+        }
+
+        await fetchUsers(false);
+      })
+      .catch((error) => {
+        console.error("Error adding user:", error);
+        toast.error(
+          error.response?.data?.message || "Error adding user",
           toastConfig,
         );
-      }
+      });
 
-      await fetchUsers(false);
-      setShowCreateForm(false);
-    } catch (error) {
-      console.error("Error adding user:", error);
-      toast.error(
-        error.response?.data?.message || "Error adding user",
-        toastConfig,
-      );
-      throw error;
-    }
+    // Return a resolved promise so the form clears/resets immediately
+    return Promise.resolve();
   };
 
   return (

@@ -1,6 +1,4 @@
 import api from "../api/axios";
-import toast from "react-hot-toast";
-import { toastConfig } from "../utils/utils";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
@@ -8,20 +6,12 @@ const getAuthHeaders = () => {
 };
 
 const adminService = {
-  addEmployee: async (userData) => {
-    try {
-      const response = await api.post("/admin/add-employee", userData, {
+  addEmployee: (userData) => {
+    return api
+      .post("/admin/add-employee", userData, {
         headers: getAuthHeaders(),
-      });
-      return response.data;
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.error ||
-        error.response?.data?.message ||
-        "Failed to add user";
-      toast.error(errorMessage, toastConfig);
-      throw error;
-    }
+      })
+      .then((response) => response.data);
   },
 
   getEmployees: async () => {
