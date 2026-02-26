@@ -52,6 +52,7 @@ export default function UserManagement() {
   const handleAddUser = async (newUserData) => {
     try {
       const response = await adminService.addEmployee(newUserData);
+      console.log("Backend Response for Create User:", response);
       if (
         response.message &&
         response.message.toLowerCase().includes("email failed")
@@ -62,7 +63,10 @@ export default function UserManagement() {
           icon: "⚠️",
         });
       } else {
-        toast.success("User added successfully", toastConfig);
+        toast.success(
+          response.message || "User added successfully",
+          toastConfig,
+        );
       }
 
       await fetchUsers(false);
