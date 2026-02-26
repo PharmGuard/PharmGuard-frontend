@@ -14,6 +14,8 @@ import PharmacistOverview from "../pages/Dashboard/Pharmacist/Overview";
 import StorekeeperOverview from "../pages/Dashboard/StockKeeper/Overview";
 import DispenseMedication from "../pages/Dashboard/Pharmacist/DispenseMedication";
 import Inventory from "../pages/Dashboard/Pharmacist/Inventory";
+import AddStock from "../pages/Dashboard/StockKeeper/AddStock";
+import StockReports from "../pages/Dashboard/StockKeeper/Stockreports";
 import VerifyEmail from "../pages/Auth/VerifyMail";
 import ProfilePage from "../pages/Dashboard/Profile";
 
@@ -123,15 +125,15 @@ export const routes = [
           },
           {
             path: "add-stock",
-            element: <div>Add Stock Page</div>,
+            element: <AddStock />,
           },
           {
             path: "inventory",
-            element: <div>Inventory page</div>,
+            element: <Inventory />,
           },
           {
             path: "stock-reports",
-            element: <div>Stock Reports</div>,
+            element: <StockReports />,
           },
           {
             path: "profile",

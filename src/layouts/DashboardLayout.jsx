@@ -60,13 +60,18 @@ const DashboardLayout = () => {
             end: true,
           },
           {
-            to: "/storekeeper-dashboard/stock",
-            label: "Stock Management",
+            to: "/storekeeper-dashboard/add-stock",
+            label: "Add Stocks",
             icon: <AuditTrail className="w-5 h-5" />,
           },
           {
-            to: "/storekeeper-dashboard/suppliers",
-            label: "Suppliers",
+            to: "/storekeeper-dashboard/inventory",
+            label: "Inventory",
+            icon: <UserManagement className="w-5 h-5" />,
+          },
+          {
+            to: "/storekeeper-dashboard/stock-reports",
+            label: "Stock Reports",
             icon: <UserManagement className="w-5 h-5" />,
           },
         ];
