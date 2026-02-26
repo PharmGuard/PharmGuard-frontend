@@ -114,3 +114,24 @@ export const reports = [
     description: "Delivery & quality metrics",
   },
 ];
+
+export const recentActivity = [
+  {
+    user: "John Martinez",
+    medication: "Paracetamol 500mg",
+    quantity: 20,
+    date: "2/10/2025, 9:20:00 AM",
+  },
+  {
+    user: "John Martinez",
+    medication: "Amoxicillin 500mg",
+    quantity: 30,
+    date: "2/11/2025, 1:15:00 PM",
+  },
+  {
+    user: "John Martinez",
+    medication: "Omeprazole 20mg",
+    quantity: 15,
+    date: "2/1/2026, 4:00:00 AM",
+  },
+];
