@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ReportCard from "./ReportCard";
 import { reports } from "../../../utils/utils";
 
 export default function StockReports() {
-  const handleGenerate = () => {
-    console.log("Generate report clicked");
+  const [loadingReportId, setLoadingReportId] = useState(null);
+
+  const handleGenerate = (id) => {
+    setLoadingReportId(id);
+    // Simulate API call
+    setTimeout(() => setLoadingReportId(null), 2000);
   };
 
   return (
@@ -70,7 +74,8 @@ export default function StockReports() {
               Icon={r.icon}
               title={r.title}
               description={r.description}
-              onGenerate={handleGenerate}
+              onGenerate={() => handleGenerate(r.id)}
+              loading={loadingReportId === r.id}
             />
           ))}
         </div>
