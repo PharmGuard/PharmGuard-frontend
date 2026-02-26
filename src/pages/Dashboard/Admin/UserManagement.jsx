@@ -57,22 +57,8 @@ export default function UserManagement() {
     adminService
       .addEmployee(newUserData)
       .then(async (response) => {
-        if (
-          response.message &&
-          response.message.toLowerCase().includes("email failed")
-        ) {
-          toast(response.message, {
-            ...toastConfig,
-            duration: 15000, // Show for 15 seconds so you can copy the OTP
-            icon: "⚠️",
-          });
-        } else {
-          toast.success(
-            response.message || "User added successfully",
-            toastConfig,
-          );
-        }
-
+        toast.success("User added successfully", toastConfig);
+        console.log(response)
         await fetchUsers(false);
       })
       .catch((error) => {
