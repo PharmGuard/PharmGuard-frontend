@@ -1,92 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import analyticsService from "../../../services/analyticsService";
 import Total from "../../../assets/dashbaord-icons/total.svg?react";
 import LowStock from "../../../assets/dashbaord-icons/low.svg?react";
 import Expire from "../../../assets/dashbaord-icons/expire.svg?react";
 import Dispensed from "../../../assets/dashbaord-icons/dispensed.svg?react";
+import { ActivityIcon, ClockIcon, DispensedBadge} from "../../../utils/Iconutils";
+import { recentActivity } from "../../../utils/utils";
 
-const ActivityIcon = () => (
-  <svg
-    className="w-4 h-4 text-blue-500"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <polyline
-      points="22 12 18 12 15 21 9 3 6 12 2 12"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const ClockIcon = () => (
-  <svg
-    className="w-4 h-4 text-yellow-400"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
-  </svg>
-);
-
-const DispensedBadge = () => (
-  <span className="inline-block bg-blue-50 text-blue-500 border border-blue-200 rounded-md px-1.5 py-0.5 text-xs font-semibold tracking-wide leading-none">
-    DISPENSED
-  </span>
-);
-
-const statsData = [
-  { label: "Total Medications", value: 125, icon: <Total /> },
-  {
-    label: "Low Stock Items",
-    value: 2,
-    icon: <LowStock className="w-5 h-5 text-red-400" />,
-  },
-  { label: "Expiring Soon (90d)", value: 0, icon: <Expire /> },
-  { label: "Dispensed Today", value: 42, icon: <Dispensed /> },
-];
-
-const lowStockItems = [
-  {
-    name: "Paracetamol 500mg",
-    sub: "Analgesics • Batch: PCM-2025-005",
-    units: 35,
-    reorder: 100,
-  },
-  {
-    name: "Omeprazole 20mg",
-    sub: "Gastrointestinal • Batch: OME-2025-002",
-    units: 20,
-    reorder: 40,
-  },
-];
-
-const recentActivity = [
-  {
-    user: "John Martinez",
-    medication: "Paracetamol 500mg",
-    quantity: 20,
-    date: "2/10/2025, 9:20:00 AM",
-  },
-  {
-    user: "John Martinez",
-    medication: "Amoxicillin 500mg",
-    quantity: 30,
-    date: "2/11/2025, 1:15:00 PM",
-  },
-  {
-    user: "John Martinez",
-    medication: "Omeprazole 20mg",
-    quantity: 15,
-    date: "2/1/2026, 4:00:00 AM",
-  },
-];
 
 export default function Dashboard() {
+  const [apiData, setApiData] = useState(null);
+
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        const data = await analyticsService.getDashboardAnalytics();
+        setApiData(data);
+      } catch (error) {
+        console.error("Failed to fetch dashboard analytics:", error);
+      }
+    };
+
+    fetchAnalytics();
+  }, []);
+
+  const overview = apiData?.data?.overview || {
+    total_medicines_tracked: 0,
+    critical_low_stock_count: 0,
+    expiring_soon_count: 0,
+  };
+
+  const alerts = apiData?.data?.alerts || {
+    low_stock_items: [],
+    expiring_batches: [],
+  };
+
+  const statsData = [
+    {
+      label: "Total Medications",
+      value: overview.total_medicines_tracked,
+      icon: <Total />,
+    },
+    {
+      label: "Low Stock Items",
+      value: overview.critical_low_stock_count,
+      icon: <LowStock className="w-5 h-5 text-red-400" />,
+    },
+    {
+      label: "Expiring Soon (90d)",
+      value: overview.expiring_soon_count,
+      icon: <Expire />,
+    },
+    { label: "Dispensed Today", value: 0, icon: <Dispensed /> }, // Placeholder as API doesn't provide this yet
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -123,34 +90,44 @@ export default function Dashboard() {
                 <LowStock className="w-5 h-5" />
                 Low Stock Alerts
               </div>
-              <span className="ml-auto text-sm font-medium text-red-700 bg-red-100/50 px-3 py-2 rounded-sm">
-                2 Critical
-              </span>
+              {alerts.low_stock_items.length > 0 && (
+                <span className="ml-auto text-sm font-medium text-red-700 bg-red-100/50 px-3 py-2 rounded-sm">
+                  {alerts.low_stock_items.length} Critical
+                </span>
+              )}
             </div>
             <div className="divide-y divide-gray-50 p-3 space-y-3">
-              {lowStockItems.map((item) => (
-                <div
-                  key={item.name}
-                  className="px-4 py-3 bg-red-100/50 rounded-sm transition-colors"
-                >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm font-semibold text-gray-800">
-                        {item.name}
-                      </p>
-                      <p className="text-xs text-gray-400 mt-0.5">{item.sub}</p>
-                    </div>
-                    <div className="text-right shrink-0 ml-3">
-                      <p className="text-sm font-bold text-red-500">
-                        {item.units} units
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        Reorder: {item.reorder}
-                      </p>
+              {alerts.low_stock_items.length > 0 ? (
+                alerts.low_stock_items.map((item, index) => (
+                  <div
+                    key={index}
+                    className="px-4 py-3 bg-red-100/50 rounded-sm transition-colors"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-gray-800">
+                          {item.medication_name || item.name || "Unknown Item"}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          {item.category} • Batch: {item.batch_number}
+                        </p>
+                      </div>
+                      <div className="text-right shrink-0 ml-3">
+                        <p className="text-sm font-bold text-red-500">
+                          {item.quantity || item.current_stock} units
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          Reorder: {item.reorder_level}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p className="text-sm text-gray-500 text-center py-4">
+                  No low stock alerts
+                </p>
+              )}
             </div>
           </div>
 
@@ -162,25 +139,52 @@ export default function Dashboard() {
                 Expiring Soon (90 days)
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center h-40 text-gray-300 gap-2">
-              <svg
-                className="w-12 h-12"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.2}
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 6v6l4 2"
-                />
-              </svg>
-              <p className="text-xs text-gray-400">
-                No medications expiring soon
-              </p>
-            </div>
+            {alerts.expiring_batches.length > 0 ? (
+              <div className="divide-y divide-gray-50 p-3 space-y-3">
+                {alerts.expiring_batches.map((item, index) => (
+                  <div
+                    key={index}
+                    className="px-4 py-3 bg-yellow-50 rounded-sm"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-gray-800">
+                          {item.medication_name || item.name}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          Batch: {item.batch_number}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-medium text-yellow-700">
+                          Exp: {new Date(item.expiry_date).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-40 text-gray-300 gap-2">
+                <svg
+                  className="w-12 h-12"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.2}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v6l4 2"
+                  />
+                </svg>
+                <p className="text-xs text-gray-400">
+                  No medications expiring soon
+                </p>
+              </div>
+            )}
           </div>
         </div>
 

@@ -31,3 +31,38 @@ export const AddUserIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
   </svg>
 );
+
+export const ActivityIcon = () => (
+  <svg
+    className="w-4 h-4 text-blue-500"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <polyline
+      points="22 12 18 12 15 21 9 3 6 12 2 12"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ClockIcon = () => (
+  <svg
+    className="w-4 h-4 text-yellow-400"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+  </svg>
+);
+
+export const DispensedBadge = () => (
+  <span className="inline-block bg-blue-50 text-blue-500 border border-blue-200 rounded-md px-1.5 py-0.5 text-xs font-semibold tracking-wide leading-none">
+    DISPENSED
+  </span>
+);
