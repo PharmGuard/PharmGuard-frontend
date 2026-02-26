@@ -1,12 +1,7 @@
 import CategoryBar from "../../../components/dashboard/CategoryBar";
 import ReceiptItem from "../../../components/dashboard/ReceiptItem";
 import ReorderItem from "../../../components/dashboard/ReorderItem";
-import StatCard from "../../../components/dashboard/StatsCard";
 import ActionCard from "../../../components/dashboard/ActionCard";
-import Total from "../../../assets/dashbaord-icons/total.svg?react";
-import LowStock from "../../../assets/dashbaord-icons/low.svg?react";
-import Expire from "../../../assets/dashbaord-icons/expire.svg?react";
-import Dispensed from "../../../assets/dashbaord-icons/dispensed.svg?react";
 import AddStock from "../../../assets/dashbaord-icons/add.svg?react";
 import Update from "../../../assets/dashbaord-icons/update.svg?react";
 import ReOrder from "../../../assets/dashbaord-icons/reorder.svg?react";
@@ -68,30 +63,6 @@ const StockkeeperOverview = () => {
 
   return (
     <div className="space-y-6 p-6 mx-auto">
-      {/* Top Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <StatCard
-          title="Total Medications"
-          value="125"
-          icon={<Total className="w-10 h-10" />}
-        />
-        <StatCard
-          title="Low Stock Items"
-          value="2 items"
-          icon={<LowStock className="w-10 h-10" />}
-        />
-        <StatCard
-          title="Expiring (90d)"
-          value="0"
-          icon={<Expire className="w-10 h-10" />}
-        />
-        <StatCard
-          title="Dispensed Today"
-          value="42"
-          icon={<Dispensed className="w-10 h-10" />}
-        />
-      </div>
-
       {/* Action Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ActionCard
@@ -103,6 +74,7 @@ const StockkeeperOverview = () => {
           gradientFrom="from-green-50"
           gradientTo="to-emerald-50"
           borderColor="border-green-100"
+          link="/storekeeper-dashboard/add-stock"
           icon={
             <AddStock className="w-10 h-10 p-2 bg-green-600 rounded-full" />
           }
@@ -116,6 +88,7 @@ const StockkeeperOverview = () => {
           gradientFrom="from-blue-50"
           gradientTo="to-indigo-50"
           borderColor="border-blue-100"
+          link="/storekeeper-dashboard/inventory"
           icon={<Update className="w-10 h-10 p-2 bg-primary rounded-full" />}
         />
         <ActionCard
@@ -127,6 +100,7 @@ const StockkeeperOverview = () => {
           gradientFrom="from-orange-100"
           gradientTo="to-amber-200"
           borderColor="border-orange-100"
+          link="/storekeeper-dashboard"
           icon={
             <ReOrder className="w-10 h-10 p-2 bg-orange-400 rounded-full" />
           }
@@ -140,6 +114,7 @@ const StockkeeperOverview = () => {
           gradientFrom="from-purple-50"
           gradientTo="to-violet-50"
           borderColor="border-purple-100"
+          link="/storekeeper-dashboard/stock-reports"
           icon={<Report className="w-10 h-10 p-2 bg-purple-500 rounded-full" />}
         />
       </div>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const ActionCard = ({
   title,
   subtitle,
@@ -8,6 +10,7 @@ const ActionCard = ({
   borderColor,
   buttonColor,
   icon,
+  link,
 }) => (
   <div
     className={`bg-gradient-to-br ${gradientFrom} ${gradientTo} rounded-xl shadow-sm border ${borderColor} p-6`}
@@ -20,11 +23,20 @@ const ActionCard = ({
       </h3>
     </div>
     <p className="text-sm text-gray-600 my-6 max-w-lg">{description}</p>
-    <button
-      className={`w-full ${buttonColor} hover:opacity-90 text-white font-medium py-3 px-4 rounded-lg transition shadow-sm`}
-    >
-      {buttonText} →
-    </button>
+    {link ? (
+      <Link
+        to={link}
+        className={`block text-center w-full ${buttonColor} hover:opacity-90 text-white font-medium py-3 px-4 rounded-lg transition shadow-sm`}
+      >
+        {buttonText} →
+      </Link>
+    ) : (
+      <button
+        className={`w-full ${buttonColor} hover:opacity-90 text-white font-medium py-3 px-4 rounded-lg transition shadow-sm`}
+      >
+        {buttonText} →
+      </button>
+    )}
   </div>
 );
 
