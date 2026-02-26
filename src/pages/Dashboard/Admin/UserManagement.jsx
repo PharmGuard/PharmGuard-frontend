@@ -52,13 +52,27 @@ export default function UserManagement() {
   const handleAddUser = async (newUserData) => {
     try {
       const response = await adminService.addEmployee(newUserData);
-      console.log("User created response:", response); 
-      toast.success("User added successfully");
+      if (
+        response.message &&
+        response.message.toLowerCase().includes("email failed")
+      ) {
+        toast(response.message, {
+          ...toastConfig,
+          duration: 15000, // Show for 15 seconds so you can copy the OTP
+          icon: "⚠️",
+        });
+      } else {
+        toast.success("User added successfully", toastConfig);
+      }
+
       await fetchUsers(false);
       setShowCreateForm(false);
     } catch (error) {
       console.error("Error adding user:", error);
-      toast.error("Error adding user", toastConfig);
+      toast.error(
+        error.response?.data?.message || "Error adding user",
+        toastConfig,
+      );
       throw error;
     }
   };

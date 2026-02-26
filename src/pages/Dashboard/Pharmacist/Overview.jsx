@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 import AlertItem from "../../../components/dashboard/AlertItem";
 import StatCard from "../../../components/dashboard/StatsCard";
 import Total from "../../../assets/dashbaord-icons/total.svg?react";
 import LowStock from "../../../assets/dashbaord-icons/low.svg?react";
 import Expire from "../../../assets/dashbaord-icons/expire.svg?react";
 import Dispensed from "../../../assets/dashbaord-icons/dispensed.svg?react";
-import Timer from '../../../assets/dashbaord-icons/timer.svg?react';
-import GrayTime from '../../../assets/dashbaord-icons/gray-time.svg?react';
-import DispenseMed from '../../../assets/dashbaord-icons/dispense-med.svg?react';
-import CheckInventory from '../../../assets/dashbaord-icons/check-inventory.svg?react'
+import Timer from "../../../assets/dashbaord-icons/timer.svg?react";
+import GrayTime from "../../../assets/dashbaord-icons/gray-time.svg?react";
+import DispenseMed from "../../../assets/dashbaord-icons/dispense-med.svg?react";
+import CheckInventory from "../../../assets/dashbaord-icons/check-inventory.svg?react";
 
 const PharmacistOverview = () => {
   return (
@@ -93,9 +94,12 @@ const PharmacistOverview = () => {
               Quickly search and dispense medications with automatic stock
               updates and FEFO compliance.
             </p>
-            <button className="w-full bg-primary hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition shadow-sm">
+            <Link
+              to="/pharmacist-dashboard/dispense"
+              className="block text-center w-full bg-primary hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition shadow-sm"
+            >
               Dispense Medication →
-            </button>
+            </Link>
           </div>
 
           {/* Check Inventory */}
@@ -112,9 +116,12 @@ const PharmacistOverview = () => {
               Real-time access to complete medication inventory with batch
               details and expiry dates.
             </p>
-            <button className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition shadow-sm">
+            <Link
+              to="/pharmacist-dashboard/inventory"
+              className="block text-center w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition shadow-sm"
+            >
               View Inventory →
-            </button>
+            </Link>
           </div>
         </div>
       </div>
