@@ -1,6 +1,13 @@
 import React from "react";
+import { FileText } from "lucide-react";
 
-const ReportCard = ({title, description, onGenerate, loading }) => (
+const ReportCard = ({
+  title,
+  description,
+  onGenerate,
+  loading,
+  Icon = FileText,
+}) => (
   <div
     style={{
       border: "1px solid #e5e7eb",

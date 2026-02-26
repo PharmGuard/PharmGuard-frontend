@@ -66,3 +66,46 @@ export const DispensedBadge = () => (
     DISPENSED
   </span>
 );
+
+export const StatItem = ({
+  icon,
+  label,
+  value,
+  unit = "",
+  color = "text-gray-900",
+}) => (
+  <div className="flex items-start gap-3">
+    <div className="mt-0.5 text-xl">{icon}</div>
+    <div>
+      <p className="text-sm text-gray-500 font-medium">{label}</p>
+      <p className={`font-semibold ${color}`}>
+        {value} {unit}
+      </p>
+    </div>
+  </div>
+);
+
+export const DetailRow = ({ label, value }) => (
+  <div className="flex justify-between py-2 border-b border-gray-100 last:border-b-0">
+    <span className="text-sm text-gray-600">{label}</span>
+    <span className="text-sm font-medium text-gray-900">{value}</span>
+  </div>
+);
+
+export const ActivityItem = ({ action, user, time, note }) => (
+  <div className="flex items-start gap-3 py-3 border-b border-gray-100 last:border-b-0">
+    <div className="mt-1">
+      <div className="h-2 w-2 rounded-full bg-green-500" />
+    </div>
+    <div className="flex-1">
+      <p className="text-sm">
+        <span className="font-medium text-gray-900">{action}</span> by{" "}
+        <span className="font-medium">{user}</span>
+      </p>
+      <p className="text-xs text-gray-500 mt-0.5">{time}</p>
+      {note && (
+        <p className="text-xs text-gray-600 mt-1 italic">Note: {note}</p>
+      )}
+    </div>
+  </div>
+);
