@@ -52,7 +52,6 @@ export default function UserManagement() {
   const handleAddUser = async (newUserData) => {
     try {
       const response = await adminService.addEmployee(newUserData);
-      console.log("Backend Response for Create User:", response);
       if (
         response.message &&
         response.message.toLowerCase().includes("email failed")
