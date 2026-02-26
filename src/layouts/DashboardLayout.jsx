@@ -98,7 +98,7 @@ const DashboardLayout = () => {
   const currentTitle = currentMatch ? currentMatch.label : "Dashboard";
 
   const currentUser = {
-    name: user?.name || "User",
+    name: user?.name || user?.username || "User",
     role: user?.role || "Guest",
     avatar: user?.avatar || "/icons/avatar.svg",
   };

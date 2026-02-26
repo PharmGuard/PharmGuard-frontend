@@ -12,7 +12,7 @@ const DashboardNavbar = ({ onMenuClick, user: propUser, title }) => {
         try {
           const data = await authService.getProfile();
           setFetchedUser({
-            name: data.username || data.fullName,
+            name: data.name || data.username,
             role: data.role,
             avatar: data.avatarUrl,
           });
